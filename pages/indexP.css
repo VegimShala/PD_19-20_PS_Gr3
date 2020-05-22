@@ -1,0 +1,17 @@
+body{
+    margin:0;
+    padding: 0;
+}
+
+.menu{
+    float:left;
+    background-color: #9A2323;
+    min-width:20%;
+    height: 969px;
+}
+
+.content{
+    float:left;
+    min-height: 969px;
+
+}

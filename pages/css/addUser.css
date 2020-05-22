@@ -1,0 +1,31 @@
+.addUser
+{
+    
+    width: 25%;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+td
+{
+ text-align: right;
+ padding-bottom: 50px;
+}
+tr
+{
+    
+}
+
+
+input
+{
+    width: 200px;
+    height: 35px;
+    text-align: center;
+}
+
+select
+{
+    width: 200px;
+    height: 40px;
+}

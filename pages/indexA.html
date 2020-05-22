@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMORA</title>
+    <link rel="stylesheet" href="css/menu.css"/>
+    <link rel="stylesheet" href="css/indexP.css"/>
+</head>
+<body>
+    <div class="menu">
+        <div class="header">
+            <p>SIMORA</p>
+        </div>
+        <div class="photo">
+            <img src="images/Avatar.png" width="200px" height="200px">
+        </div>
+        <div class="info">
+            <p>ID</p>
+            <p>Emri Mbiemri</p>
+            <p>Email</p>
+            <p>Departamenti i DEPT</p>
+            <p>FSHMN</p>
+        </div>
+        <div style="margin-top: 125px;" class="menuItems">
+            <nav>
+                <ul>
+                    <li><a href="#"> Orari i provimeve </a></li>
+                    <hr>
+                    <li> <a href="#">Kontakto profesoret </a></li>
+                    <hr>
+                    <li> <a href="#">Shto shfrytezues </a></li>
+                    <hr>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer">
+            <a href="#" id="logout">Ckyqu</a>
+            <a href="#" id="changePass">Ndrysho fjalekalimin</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="contentTitle">
+            <h2>ORARI I PROVIMEVE</h2>
+        </div>
+
+        <div style="width: 95%;" class="filter">
+            <form action="#" method="GET">
+                <table>
+                    <tr>
+                        <th><label>Zgjedh daten:</label></th>
+                        <th><label>Zgjedh departamentin:</label></th>
+                        <th><label>Zgjedh sallen:</label></th>
+                        <th><label>Zgjedh profesorin:</label></th>
+                        <th rowspan="2">
+                            <input type="submit" value="Filtro">
+                        </th>
+                    </tr>
+                    <tr>
+                        <td><input type="date"/></td>
+                        <td>
+                            <select>
+                            <option>Matematike</option>
+                            <option>Fizike</option>
+                            <option>Kimi</option>
+                            <option>Biologji</option>
+                            <option>Gjeografi</option>
+        
+                            </select>
+                        </td>
+                        <td>
+                            <select>
+                                <option>Salla 153</option>
+                                <option>Salla 103</option>
+                            </select>
+                        </td>
+                        <td>
+                            <datalist id="professorsM">
+                                <option>Ermir Rogova</option>
+                                <option>Eliot Bytyqi</option>
+                                <option>Artan Berisha</option>
+                            </datalist>
+                            <input type="text" list="professorsM">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="schedules">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Salla</th>
+                    <th>Lenda</th>
+                    <th>Profesori</th>
+                    <th>Data</th>
+                    <th>Fillimi</th>
+                    <th>Mbarimi</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Salla 153</td>
+                    <td>Programimi i Distribuar</td>
+                    <td>Ermir Rogova</td>
+                    <td>25.07.2020</td>
+                    <td>12:00</td>
+                    <td>13:30</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Salla 153</td>
+                    <td>Programimi i Distribuar</td>
+                    <td>Ermir Rogova</td>
+                    <td>25.07.2020</td>
+                    <td>12:00</td>
+                    <td>13:30</td>
+                </tr>
+            </table>
+        </div>
+        <div class="addRemove">
+            <form action="#" method="GET">
+                <input type="button" value="Fshij orar">
+                <input type="button" value="Shto orar">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

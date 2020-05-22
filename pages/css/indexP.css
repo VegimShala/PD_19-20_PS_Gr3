@@ -1,0 +1,66 @@
+
+.filter 
+{
+    width: 75%; margin: 0 auto;
+}
+
+th{
+    text-align: center;
+
+}
+td{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+input
+{
+    width: 200px;
+    height: 35px;
+
+    text-align: center;
+}
+select
+{
+    width: 200px;
+    height: 40px;
+}
+
+.schedules
+{
+    
+    margin-top: 50px;
+}
+
+.schedules table{
+border-spacing: 0px;
+padding-left: 100px;
+padding-right: 100px;
+
+}
+
+.schedules table tr th, .schedules table tr td{
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    border-bottom: 1px solid #9A2323;
+}
+.schedules table tr th
+{
+    background-color: #9A2323;
+    color: white;
+
+}
+
+.addRemove
+{
+    margin-top: 20px;
+
+
+}
+
+.addRemove input
+{
+    height: 50px;
+    margin-left: 25%;
+}

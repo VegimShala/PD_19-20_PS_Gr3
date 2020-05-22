@@ -1,0 +1,102 @@
+body{
+    margin:0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu{
+    float:left;
+    background-color: #9A2323;
+    min-width:20%;
+    height: 969px;
+}
+
+.content{
+    float:left;
+    min-height: 969px;
+    width: 80%;
+    overflow-y: ;
+}
+
+.header {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 20%;
+}
+
+.photo {
+    padding-top: 25%;
+    width: 50%; margin: 0 auto;
+}
+
+.info  {
+    color: white;
+    font-weight: bold;
+
+}
+
+.info p{
+    text-align: center;
+    font-size: 1.25em;
+}
+
+.menuItems {
+    margin-top: 175px;
+}
+
+.menuItems nav ul{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.menuItems nav ul li{
+    list-style-type: none;
+    display: block;
+    padding-top:1%;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.footer {
+    color: white;
+    font-weight: bold;
+    margin-top: 47px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#logout
+{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+#changePass
+{
+    position: fixed;
+    bottom: 10px;
+    left: 215px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: #c4c4c4;
+}
+.contentTitle
+{
+    color: #9A2323;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
