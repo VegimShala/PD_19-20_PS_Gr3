@@ -1,31 +1,61 @@
 .addUser
 {
     
-    width: 25%;
+    width: 35%;
     margin: 0 auto;
     margin-top: 100px;
 }
+
 
 td
 {
  text-align: right;
  padding-bottom: 50px;
 }
-tr
-{
-    
-}
 
+label{
+    margin-right: 20px;
+    font-weight: bold;
+}
 
 input
 {
-    width: 200px;
+    width: 300px;
     height: 35px;
     text-align: center;
+    border-color: #9A2323;
+    font-size: 1.05em;
 }
 
 select
 {
-    width: 200px;
+    width: 300px;
     height: 40px;
+    background-color: -internal-light-dark-color(white, black);
+    border-color: #9A2323;
+    border-width: 2px;
+    border-style: inset;
+    font-size: 1.05em;
+    text-align: center;
 }
+
+[type=submit]
+{
+    width: 150px;
+    height: 50px;
+    margin-right: 75px;
+    background-color: #9A2323;
+    color: #dfdfdf;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 1s, color 1s;
+}
+
+[type=submit]:hover
+{
+    background-color: #861717;
+    color: white;
+}
+

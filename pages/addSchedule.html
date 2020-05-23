@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMORA - Shto shfrytezues</title>
+    <title>SIMORA - Shto orar</title>
     <link rel="stylesheet" href="css/menu.css"/>
     <link rel="stylesheet" href="css/addUser.css"/>
 </head>
@@ -42,36 +42,15 @@
 
     <div class="content">
         <div style="margin-top: 100px;" class="contentTitle">
-            <h2>SHTO SHFRYTEZUES</h2>
+            <h2>SHTO ORAR</h2>
         </div>
         <div class="addUser">
             <form action="#" method="GET">
                 <table>
                     <tr>
                         <td>
-                            <label>Emri:</label>
-                            
+                            <label>Departamenti:</label>
                         </td>
-                        <td>
-                            <input type="text">
-                            
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Mbiemri:</label>
-                        </td>
-                        <td>
-                            <input type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>ID: </label></td>
-                        <td><input type="text"></td>
-                    </tr>
-                    <tr>
-                        <td><label>Departamenti:</label></td>
                         <td>
                             <select>
                                 <option>Matematike</option>
@@ -83,8 +62,46 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Emaili: </label></td>
-                        <td><input type="text"></td>  
+                        <td>
+                            <label>Salla:</label>
+                        </td>
+                        <td>
+                            <select>
+                                <option>Salla 153</option>
+                                <option>Salla 104</option>
+                                <option>Salla 103</option>
+                                <option>Lab M</option>
+                                <option>Lab V</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Lenda:</label>
+                        </td>
+                        <td>
+                            <datalist id="lendetM"></datalist>
+                            <input type="text" id="lendetM">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>ID: </label></td>
+                        <td><input type="text">
+                            <br><label> <em style="font-size: 0.8em;">Profesori: Alban Elezi</em></label></td>
+                    </tr>
+                    <tr>
+                        <td><label>Data:</label></td>
+                        <td>
+                            <input type="date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Fillimi: </label></td>
+                        <td><input type="time"></td>  
+                    </tr>
+                    <tr>
+                        <td><label>Mbarimi: </label></td>
+                        <td><input type="time"></td>  
                     </tr>
                     <tr>
                         <td></td>

@@ -41,6 +41,25 @@
     </div>
 
     <div class="content">
+        <div class="hover_bkgr_fricc">
+            <span class="helper"></span>
+            <div>
+                <div class="popupCloseButton">X</div>
+                <h3>Jeni te sigurt qe doni te fshini orarin me keto te dhena?</h3>
+                <p><b>ID:</b> 4</p>
+                <p><b>Salla:</b> Salla 153</p>
+                <p><b>Lenda:</b> Programimi i Distribuar</p>
+                <p><b>Profesori:</b> Ermir Rogova</p>
+                <p><b>Data:</b> 22.06.2020</p>
+                <p><b>Fillimi:</b> 10:00</p>
+                <p><b>Mbarimi:</b> 11:30</p>
+                <form action="#" method="GET">
+                    <input style="margin-left: 50px;" type="submit" value="PO">
+                    <input style="margin-right: 50px;"type="submit" value="JO">
+
+                </form>
+            </div>
+        </div>
         <div class="contentTitle">
             <h2>ORARI I PROVIMEVE</h2>
         </div>
@@ -120,8 +139,18 @@
         </div>
         <div class="addRemove">
             <form action="#" method="GET">
-                <input type="button" value="Fshij orar">
-                <input type="button" value="Shto orar">
+                <label>Shkruaj ID e orarit:</label><input type="text">
+                <input type="submit" value="Fshij orar" id="removeSchedule">
+                <input type="submit" value="Shto orar" id="addSchedule">
+                <br>
+                <label>Profesori: Alban Elezi</label> <br>
+                <label>Lenda: Prog Dist</label> <br>
+                <label>Salla: 153</label>
+                
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <script src="popup.js">
+                    
+                </script>
             </form>
         </div>
     </div>
