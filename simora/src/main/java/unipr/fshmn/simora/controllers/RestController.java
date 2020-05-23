@@ -1,4 +1,4 @@
-package unipr.fshmn.simora;
+package unipr.fshmn.simora.controllers;
 
 import org.springframework.web.bind.annotation.*;
 

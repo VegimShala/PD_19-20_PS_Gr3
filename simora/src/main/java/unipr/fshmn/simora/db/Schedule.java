@@ -1,4 +1,4 @@
-package unipr.fshmn.simora;
+package unipr.fshmn.simora.db;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package unipr.fshmn.simora;
+package unipr.fshmn.simora.db;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +12,19 @@ public class User {
     private Long ID;
     private String firstName;
     private String lastName;
+    private String email;
     private String department;
     private boolean isAdmin;
 
     public User() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getID() {
