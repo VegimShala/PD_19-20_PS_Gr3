@@ -1,60 +1,41 @@
-<link href="login1.css" rel="stylesheet">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Login Page</title>
-   <!--Made with love by Mutiullah Samim -->
-   
-
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="login.css">
+    <meta charset="UTF-8">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
 <div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Ky&ccedil;u</h3>
-				
-			</div>
-			<div class="card-body">
-				<form>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="ID e perdoruesit">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="Fjalekalimi">
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Ruaj kredencialet
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Ky&ccedil;u" class="btn float-right login_btn">
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center">
-					<a href="#">Keni harruar fjalekalimin?</a>
-				</div>
-			</div>
-		</div>
-	</div>
+
+    <div class="simora">
+        <h3>Platforma per menaxhimin e orarit te provimeve</h3>
+        <h1>SIMORA</h1>
+        <h4>FSHMN 2020</h4>
+    </div>
+
+    <div class="login">
+        <form action="#" method="post">
+            <img src="images/logo.png" alt="logo e UP" width="130px"/>
+
+            <div class="id">
+                <label>Perdoruesi:</label><br>
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" type="text" placeholder="Shkruaj emailin..." name="usrnm"><br>
+                <label>Fjalekalimi:</label><br>
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" placeholder="Shkruaj fjalekalimin..." name="psw"><br>
+
+                <input type="submit" value="Kycu">
+            </div>
+
+        </form>
+        <p><a href="#">Keni harruar fjalekalimin?</a></p>
+    </div>
 </div>
+
+
 </body>
 </html>

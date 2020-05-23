@@ -1,90 +1,82 @@
-/* Made with love by Mutiullah Samim*/
-
-@import url('https://fonts.googleapis.com/css?family=Numans');
-
-html,body{
-background-image: url("logo.jpg");
-background-size: cover;
-background-repeat: no-repeat;
-background-blend-mode: darken;
-background-color: rgba(10,10,20,0.70);
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
-
 .container{
-height: 100%;
-align-content: center;
+    width: 100%;
+    margin:150px auto ;
+    background-color: rgb(163, 155, 155);
+    /* border:1px solid red; */
+}
+.simora{
+    float: left;
+    margin-left: 190px;
+    margin-top: 50px;
 }
 
-.card{
-height: 370px;
-margin-top: auto;
-margin-bottom: auto;
-width: 400px;
-background-color: rgba(0,0,0,0.5) !important;
+.login{
+    float: right;
+    width: 300px;
+    margin-right: 300px;
+    background-color: #F7F7F7;
+    border: 0.5px solid rgb(182, 179, 179);
+    box-shadow: 1px 1px 4px 5px #cccbcbc9;
+    padding-top: 40px;
+    padding-left: 70px;
+}
+h3,h4{
+    text-align:center;
+}
+h1{
+    color: #AB1112;
+    font-size: 4.5em;
+    text-align: center;
+    margin: 80px 0;
+}
+form{
+    justify-content: center;
 }
 
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #FFC312;
+label{
+    font-size: 14px;
+    font-weight: 500;
+    padding-top:20px;
 }
-
-.social_icon span:hover{
-color: white;
-cursor: pointer;
+input[type=text],[type=password]{
+    width: 200px;
+    height: 30px;
+    border: 0.2px solid #cccbcb;
+    padding-left:5px;
 }
-
-.card-header h3{
-color: white;
-padding-left: 125px;
-    padding-top: 30px;
+input[type=submit]{
+    height: 35px;
+    padding:5px 27px;
+    background-color: #AB1112;
+    color: white;
+    margin: 20px 76px;
+    border-radius: 10px;
 }
-
-.social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
+p{
+    font-size: 13px;
+    text-align: right;
+    padding-right: 18px;
 }
-
-.input-group-prepend span{
-width: 50px;
-color: black;
-border:0 !important;
+a{
+    color: #AB1112;
+    text-decoration: none;
 }
-
-input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
+img{
+    padding-left: 55px;
 }
-
-.remember{
-color: white;
+.id{
+    padding-top: 20px;
 }
-
-.remember input
-{
-width: 20px;
-height: 20px;
-margin-left: 15px;
-margin-right: 5px;
-}
-
-.login_btn{
-color: black;
-background-color: #A1A09D;
-width: 100px;
-}
-
-.login_btn:hover{
-color: black;
-background-color: white;
-}
-
-.links{
-color: white;
-}
-
-.links a{
-margin-left: 4px;
-}
+.icon {
+    float: left;
+    padding: 6px;
+    background: #EEEEEE;
+    color: black;
+    min-width: 20px;
+    text-align: center;
+  }
