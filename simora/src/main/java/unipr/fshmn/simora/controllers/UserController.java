@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import unipr.fshmn.simora.db.User;
 import unipr.fshmn.simora.db.UserRepository;
+import unipr.fshmn.simora.mail.EmailServiceImpl;
 
 @Controller
 @RequestMapping(path="/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private EmailServiceImpl emailService;
     @RequestMapping(path="/add") // Map ONLY POST Requests
     public ModelAndView addNewUser (@RequestParam String name,@RequestParam String lastName,@RequestParam String department
             , @RequestParam String email,@RequestParam Long id) {
@@ -31,6 +33,13 @@ public class UserController {
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("indexA");
         return modelAndView;
+    }
+    @GetMapping(path="/sendEmail") // Map ONLY POST Requests
+    public ModelAndView addNewUser (@RequestParam String to) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        emailService.sendSimpleMessage(to,"Test","qkemi");
+        return null;
     }
 
     @GetMapping(path="/all")
