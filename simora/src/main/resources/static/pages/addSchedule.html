@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMORA - Shto orar</title>
-    <link rel="stylesheet" href="/pages/css/menu.css"/>
-    <link rel="stylesheet" href="/pages/css/addUser.css"/>
+    <link rel="stylesheet" href="/pages/css/menu.css" />
+    <link rel="stylesheet" href="/pages/css/addUser.css" />
 </head>
+
 <body>
     <div class="menu">
         <div class="header">
@@ -45,19 +47,20 @@
             <h2>SHTO ORAR</h2>
         </div>
         <div class="addUser">
-            <form action="/g" method="GET">
+            <form action="/schedule/add" method="GET">
                 <table>
                     <tr>
                         <td>
                             <label>Departamenti:</label>
                         </td>
                         <td>
-                            <select>
-                                <option>Matematike</option>
-                                <option>Fizike</option>
-                                <option>Kimi</option>
-                                <option>Biologji</option>
-                                <option>Gjeografi</option>
+                            <select name="department" id="selectDepartment" onclick="selectChanged();">
+                                <option value="Zgjedh Departamentin">Zgjedh Departamentin</option>
+                                <option value="Matematike">Matematike</option>
+                                <option value="Fizike">Fizike</option>
+                                <option value="Kimi">Kimi</option>
+                                <option value="Biologji">Biologji</option>
+                                <option value="Gjeografi">Gjeografi</option>
                             </select>
                         </td>
                     </tr>
@@ -66,13 +69,33 @@
                             <label>Salla:</label>
                         </td>
                         <td>
-                            <select>
-                                <option>Salla 153</option>
-                                <option>Salla 104</option>
-                                <option>Salla 103</option>
-                                <option>Lab M</option>
-                                <option>Lab V</option>
+                            <select name="room" id="selectRoom">
+                                <option value="0" class="Zgjedh Departamentin">Zgjedh Sallen</option>
+                                <option value="1" class="Matematike" hidden>Salla 153</option>
+                                <option value="2" class="Matematike" hidden>Salla 114</option>
+                                <option value="3" class="Matematike" hidden>Salla 113</option>
+                                <option value="4" class="Matematike" hidden>Lab M</option>
+                                <option value="5" class="Matematike" hidden>Lab V</option>
+                                <option value="6" class="Matematike" hidden>Lab B</option>
+                                <option value="7" class="Fizike" hidden>Salla 100</option>
+                                <option value="8" class="Fizike" hidden>Salla 101</option>
+                                <option value="9" class="Biologji" hidden>Salla 200</option>
+                                <option value="10" class="Biologji" hidden>Salla 201</option>
+                                <option value="11" class="Kimi" hidden>Salla 300</option>
+                                <option value="12" class="Kimi" hidden>Salla 301</option>
+                                <option value="13" class="Gjeografi" hidden>Salla 400</option>
+                                <option value="14" class="Gjeografi" hidden>Salla 401</option>
                             </select>
+                            <script>
+                                function selectChanged() {
+                                    var selectDepartment = document.getElementById("selectDepartment");
+
+                                    var selectRoomOptions = document.getElementsByClassName(selectDepartment.value);
+                                    for (var i = 0; i < selectRoomOptions.length; i++) {
+                                        selectRoomOptions[i].hidden = false;
+                                    }
+                                }
+                            </script>
                         </td>
                     </tr>
                     <tr>
@@ -81,38 +104,35 @@
                         </td>
                         <td>
                             <datalist id="lendetM"></datalist>
-                            <input type="text" id="lendetM">
+                            <input type="text" list="lendetM" name="subject">
                         </td>
                     </tr>
                     <tr>
                         <td><label>ID: </label></td>
-                        <td><input type="text">
+                        <td><input type="text" name="ID">
                             <br><label> <em style="font-size: 0.8em;">Profesori: Alban Elezi</em></label></td>
                     </tr>
                     <tr>
-                        <td><label>Data:</label></td>
+                        <td><label>Data dhe koha e fillimit:</label></td>
                         <td>
-                            <input type="date">
+                            <input type="datetime-local" name="startDate">
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Fillimi: </label></td>
-                        <td><input type="time"></td>  
-                    </tr>
-                    <tr>
-                        <td><label>Mbarimi: </label></td>
-                        <td><input type="time"></td>  
+                        <td><label>Data dhe koha e mbarimit: </label></td>
+                        <td><input type="datetime-local" name="endDate"></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td >
+                        <td>
                             <input type="submit" value="SHTO">
                         </td>
                     </tr>
-                   
+
                 </table>
             </form>
         </div>
     </div>
 </body>
+
 </html>

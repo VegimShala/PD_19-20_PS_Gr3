@@ -1,6 +1,7 @@
 package unipr.fshmn.simora.db;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -10,12 +11,36 @@ public class Schedule {
     private Long ID;
     private Long roomID;
     private String subject;
+    private String department;
     private Long userID;
-    private Date date;
-    private Date start;
-    private Date end;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
 
     public Schedule() {
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public Long getID() {
@@ -50,27 +75,5 @@ public class Schedule {
         this.userID = userID;
     }
 
-    public Date getDate() {
-        return date;
-    }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Date getStart() {
-        return start;
-    }
-
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
 }
