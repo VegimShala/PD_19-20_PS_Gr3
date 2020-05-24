@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMORA</title>
-    <link rel="stylesheet" href="/pages/css/menu.css"/>
-    <link rel="stylesheet" href="/pages/css/indexP.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/menu.css"/>
+    <link rel="stylesheet" href="/css/indexP.css"/>
 </head>
 <body>
     <div class="menu">
@@ -13,7 +13,7 @@
             <p>SIMORA</p>
         </div>
         <div class="photo">
-            <img src="/pages/images/Avatar.png" width="200px" height="200px">
+            <img src="../static/images/Avatar.png" th:src="@{images/Avatar.png}" width="200px" height="200px">
         </div>
         <div class="info">
             <p>ID</p>
