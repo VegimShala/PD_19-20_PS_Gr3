@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import unipr.fshmn.simora.db.User;
 import unipr.fshmn.simora.db.UserRepository;
 
@@ -16,19 +17,22 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewUser (@RequestParam String name,@RequestParam String lastName,@RequestParam String department
-            , @RequestParam String email) {
+    @RequestMapping(path="/add") // Map ONLY POST Requests
+    public ModelAndView addNewUser (@RequestParam String name,@RequestParam String lastName,@RequestParam String department
+            , @RequestParam String email,@RequestParam Long id) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
         User n = new User();
+        n.setID(id);
         n.setFirstName(name);
         n.setEmail(email);
         n.setLastName(lastName);
         n.setDepartment(department);
         userRepository.save(n);
-        return "Saved";
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("indexA");
+        return modelAndView;
     }
 
     @GetMapping(path="/all")

@@ -45,7 +45,7 @@
             <h2>SHTO SHFRYTEZUES</h2>
         </div>
         <div class="addUser">
-            <form action="#" method="GET">
+            <form action="/user/add" method="GET">
                 <table>
                     <tr>
                         <td>
@@ -53,9 +53,7 @@
                             
                         </td>
                         <td>
-                            <input type="text">
-                            
-                            
+                            <input type="text" name="name">
                         </td>
                     </tr>
                     <tr>
@@ -63,17 +61,17 @@
                             <label>Mbiemri:</label>
                         </td>
                         <td>
-                            <input type="text">
+                            <input type="text" name="lastName">
                         </td>
                     </tr>
                     <tr>
                         <td><label>ID: </label></td>
-                        <td><input type="text"></td>
+                        <td><input type="text" name="id"></td>
                     </tr>
                     <tr>
                         <td><label>Departamenti:</label></td>
                         <td>
-                            <select>
+                            <select name="department">
                                 <option>Matematike</option>
                                 <option>Fizike</option>
                                 <option>Kimi</option>
@@ -84,7 +82,7 @@
                     </tr>
                     <tr>
                         <td><label>Emaili: </label></td>
-                        <td><input type="text"></td>  
+                        <td><input type="text" name="email"></td>
                     </tr>
                     <tr>
                         <td></td>
