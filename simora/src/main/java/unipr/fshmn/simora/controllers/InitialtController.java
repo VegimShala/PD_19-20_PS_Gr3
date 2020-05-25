@@ -23,6 +23,9 @@ public class InitialtController {
         return "videoCall";
     }
 
+    @RequestMapping("")
+    public String start() {return "index";}
+
 
     @RequestMapping("/")
     public String index() {return "index";}

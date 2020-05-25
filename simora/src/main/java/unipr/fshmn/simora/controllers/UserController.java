@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import unipr.fshmn.simora.db.Room;
 import unipr.fshmn.simora.db.User;
 import unipr.fshmn.simora.db.UserRepository;
 import unipr.fshmn.simora.mail.EmailServiceImpl;
@@ -48,10 +49,28 @@ public class UserController {
         emailService.sendSimpleMessage(email,"SIMORA - Regjistrimi ne sistem","Perdoruesi ne SIMORA u krijua, " +
                 "fjalekalimi juaj eshte: " + randomPassword);
         ModelAndView modelAndView=new ModelAndView();
-        //Me ja qu ni email me passwordin nashta
-       // modelAndView.setViewName("index");
-        modelAndView.setViewName("userAdded");
+        if(!inDB(id)) {
+            userRepository.save(n);
+            modelAndView.setViewName("userAdded");
+        }
+        else{
+            modelAndView.setViewName("userCouldNotBeAdded");
+        }
         return modelAndView;
+    }
+
+    public boolean inDB(Long ID)
+    {
+        boolean answer = false;
+        Iterable<User> users = userRepository.findAll();
+        for(User user : users)
+        {
+            if(ID == user.getID())
+            {
+                answer = true;
+            }
+        }
+        return answer;
     }
 
     @GetMapping(path="/sendEmail")

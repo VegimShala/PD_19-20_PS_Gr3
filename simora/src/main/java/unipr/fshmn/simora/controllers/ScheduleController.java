@@ -1,5 +1,6 @@
 package unipr.fshmn.simora.controllers;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import unipr.fshmn.simora.db.*;
 
+import javax.xml.bind.Element;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
@@ -25,6 +28,8 @@ public class ScheduleController {
     private ScheduleRepository scheduleRepository;
     @Autowired
     private RoomRepository roomRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(path="/add") // Map ONLY POST Requests
     public ModelAndView addNewUser (@RequestParam String department, @RequestParam String room, @RequestParam String subject
@@ -37,12 +42,63 @@ public class ScheduleController {
         s.setSubject(subject);
         s.setStartDate(LocalDateTime.parse(startDate));
         s.setEndDate(LocalDateTime.parse(endDate));
-        scheduleRepository.save(s);
         ModelAndView modelAndView=new ModelAndView();
+        LocalDateTime start = LocalDateTime.parse(startDate);
+        LocalDateTime end = LocalDateTime.parse(endDate);
+        boolean hasElements = false;
+        boolean isValid = false;
+        if(inDB(ID)) {
+            Iterable<Schedule> schedules = scheduleRepository.findByRoomID(getRoomId(room));
 
-        modelAndView.setViewName("scheduleAdded");
-        //modelAndView.setViewName("index");
+            for (Schedule element : schedules) {
+                hasElements = true;
+            }
+
+            for(Schedule schedule: schedules)
+            {
+                if(start.isBefore(end)) {
+                    LocalDateTime startN = LocalDateTime.parse(schedule.getStartDate().substring(0,10) + "T"+
+                            schedule.getStartDate().substring(11,schedule.getStartDate().length()));
+                    LocalDateTime endN = LocalDateTime.parse(schedule.getEndDate().substring(0,10) + "T"+
+                            schedule.getEndDate().substring(11,schedule.getEndDate().length()));
+                    if (!((start.isBefore(startN) && (end.isBefore(startN)))
+                            || (start.isAfter(endN))))
+                    {
+                        isValid = true;
+                    }
+                    else
+                    {
+                        modelAndView.setViewName("Overlapping");
+                    }
+                }
+                else
+                {
+                    modelAndView.setViewName("DateError");
+                }
+            }
+        }
+        else
+        {
+            modelAndView.setViewName("professorNotFound");
+        }
+        if(isValid || !hasElements){
+        scheduleRepository.save(s);
+        modelAndView.setViewName("scheduleAdded");}
         return modelAndView;
+    }
+
+    public boolean inDB(Long ID)
+    {
+        boolean answer = false;
+        Iterable<User> users = userRepository.findAll();
+        for(User user : users)
+        {
+            if(ID.equals(user.getID()))
+            {
+                answer = true;
+            }
+        }
+        return answer;
     }
 
     @RequestMapping("/remove")
@@ -63,56 +119,16 @@ public class ScheduleController {
         return modelAndView;
     }
 
-    @RequestMapping("/qyshdush")
+    @RequestMapping("/filter")
     public ModelAndView showSchedules(@RequestParam String date, @RequestParam String department, @RequestParam String room, @RequestParam String professor)
     {
-        System.out.println(date);
-        System.out.println(department);
-        System.out.println(room);
-        System.out.println(professor);
-
         if(date.equals("1970-10-01")){ date = ""; }
         if(department.equals("Zgjedh Departamentin")) { department = ""; }
         if(room.equals("Zgjedh Sallen")) { room = ""; }
         professor = professor.trim();
-        System.out.println(date);
-        System.out.println(department);
         Iterable<ScheduleDTO> schedules = (Iterable<ScheduleDTO>)
                 scheduleRepository.gjej
                         ("%"+date+"%","%"+department+"%","%"+room+"%","%"+professor+"%").stream().map(this::toDTO).collect(Collectors.toList());
-
-        if(!room.equals("Zgjedh Sallen"))
-        {
-            Long roomID = getRoomId(room);
-            if(!professor.trim().equals(""))
-            {
-                Long profId = 0l;
-                try {profId = Long.parseLong(professor);}
-                catch (NumberFormatException e) {System.out.println("Couldn't parse to Long");}
-
-                schedules = (Iterable<ScheduleDTO>) scheduleRepository.findByStartDateContainingAndDepartmentContainingAndRoomIDLikeAndUserIDLike
-                                (date,department,roomID,profId).stream().map(this::toDTO).collect(Collectors.toList());
-            }
-            else
-            {
-                schedules = (Iterable<ScheduleDTO>) scheduleRepository.findByStartDateContainingAndDepartmentAndRoomID
-                                (date,department,roomID).stream().map(this::toDTO).collect(Collectors.toList());
-            }
-        }
-        else
-        {
-            if(!professor.trim().equals("")) {
-                Long profId = 0l;
-                try {
-                    profId = Long.parseLong(professor);
-                } catch (NumberFormatException e) {
-                    System.out.println("Couldn't parse to Long");
-                }
-
-                schedules = (Iterable<ScheduleDTO>) scheduleRepository.findByStartDateContainingAndDepartmentAndUserID
-                                (date, department, profId).stream().map(this::toDTO).collect(Collectors.toList());
-            }
-        }
 
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("schedules",schedules);
