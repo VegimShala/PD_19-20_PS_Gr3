@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -113,7 +113,7 @@
 <!--credential: turnServerPassword-->
 <!--}-->
 <!--]-->
-<script>
+<script th:inline="javascript">
     const webSocketConnection = "ws://localhost:8099/socket";
 
 
@@ -124,7 +124,8 @@
     var outBoundBytesPrev = 0;
 
     existingTracks = [];
-
+    var id = /*[[${currentUser.ID}]]*/ 'Sebastian';
+    console.log(id);
     var socket, localStream, connection, clientId = uuidv4(), channel;
 
     const configuration = {
@@ -169,7 +170,7 @@
             "message": messageText
         }));
 
-        document.getElementById("chatTextArea").value += messageText + '\n';
+        document.getElementById("chatTextArea").value += 'You:'+messageText + '\n';
     }
 
     function disconnectRTCPeerConnection(){
@@ -459,7 +460,7 @@
     function setChannelEvents(channel) {
         channel.onmessage = function (event) {
             var data = JSON.parse(event.data);
-            document.getElementById("chatTextArea").value += data.message + '\n';
+            document.getElementById("chatTextArea").value += 'Peer: '+data.message + '\n';
         };
 
         channel.onerror = function (event) {

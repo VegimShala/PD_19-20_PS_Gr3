@@ -17,6 +17,11 @@ public class InitialtController {
     {
         return "addSchedule";
     }
+    @RequestMapping("/videoCall")
+    public String videoCall()
+    {
+        return "videoCall";
+    }
 
     @RequestMapping("/indexA")
     public String indexA()
