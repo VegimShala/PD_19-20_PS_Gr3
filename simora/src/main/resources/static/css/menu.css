@@ -2,6 +2,7 @@ body{
     margin:0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    overflow-y: hidden;
 }
 
 .menu{
@@ -15,7 +16,7 @@ body{
     float:left;
     min-height: 969px;
     width: 80%;
-    overflow-y: scroll;
+
 }
 
 .header {
@@ -70,10 +71,13 @@ body{
 
 #logout
 {
+all: initial;
+    color: white;
+    cursor: pointer;
     position: fixed;
     bottom: 10px;
     left: 10px;
-}
+    font-weight: bold; }
 
 #changePass
 {

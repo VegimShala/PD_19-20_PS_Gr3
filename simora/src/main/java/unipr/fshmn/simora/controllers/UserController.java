@@ -49,7 +49,7 @@ public class UserController {
                 "fjalekalimi juaj eshte: " + randomPassword);
         ModelAndView modelAndView=new ModelAndView();
         //Me ja qu ni email me passwordin nashta
-       // modelAndView.setViewName("indexA");
+       // modelAndView.setViewName("index");
         modelAndView.setViewName("userAdded");
         return modelAndView;
     }

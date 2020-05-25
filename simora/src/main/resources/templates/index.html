@@ -1,68 +1,161 @@
-<html  xmlns:th="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>WebRTC demo</title>
-    <!--Bootstrap only for styling-->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <!--Bootstrap only for styling-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMORA</title>
+    <link rel="stylesheet" type="text/css" href="/css/menu.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
 </head>
-<style>
-.container {
-    background: rgb(148, 144, 144);
-    margin: 50px auto;
-    max-width: 80%;
-    text-align: center;
-    padding: 2%;
-}
-
-button {
-    margin: 1em;
-}
-
-input {
-    margin-top: 1em;
-}
-
-.footer {
-    background: rgb(148, 144, 144);
-    text-align: center;
-    padding: 2%;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-</style>
-
-<body>
-
-<div class="container">
-    <h1>A Demo for messaging in WebRTC</h1>
-
-    <h3>
-        Run two instances of this webpage along with the server to test this
-        application.<br> Create an offer, and then send the message. <br>Check
-        the browser console to see the output.
-    </h3>
-
-    <!--WebRTC related code-->
-    <button type="button" class="btn btn-primary" onclick='createOffer()'>Create
-        Offer</button>
-    <button type="button" class="btn btn-primary" onclick='startVideoCall()'>Video</button>
-    <input id="messageInput" type="text" class="form-control"
-           placeholder="message">
-    <button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
-    <script th:src="@{/js/client.js}"></script>
-    <!--WebRTC related code-->
-
+<body >
+<div class="menu">
+    <div class="header">
+        <p>SIMORA</p>
+    </div>
+    <div class="photo">
+        <img src="../static/images/Avatar.png" th:src="@{images/Avatar.png}" width="200px" height="200px">
+    </div>
+    <div class="info">
+        <p th:text="${currentUser.ID}"></p>
+        <p><span th:text="${currentUser.firstName}"></span> <span>&nbsp;</span><span th:text="${currentUser.lastName}"></span></p>
+        <p th:text="${currentUser.email}"></p>
+        <p th:text="${currentUser.department}"></p>
+        <p>FSHMN</p>
+    </div>
+    <div style="margin-top: 125px;" class="menuItems">
+        <nav>
+            <ul>
+                <li ><a href="/"> Orari i provimeve </a></li>
+                <hr>
+                <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" > <a href="/videoCall">Kontakto profesoret </a></li>
+                <hr th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> <a href="/addUser">Shto shfrytezues </a></li>
+                <hr th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"> <a href="/videoCall">Kontakto administratorin </a></li>
+                <hr th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            </ul>
+        </nav>
+    </div>
+    <div class="footer">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Ckyqu" id="logout"/>
+        </form>
+        <a href="recoveryEmail" id="changePass">Ndrysho fjalekalimin</a>
+    </div>
 </div>
-<div class="footer">This application is intentionally made simple
-    to avoid cluttering with non WebRTC related code.</div>
 
+<div style="overflow-y:scroll" class="content">
+    <div class="contentTitle">
+        <h2>ORARI I PROVIMEVE</h2>
+    </div>
+
+    <div style="width: 95%;" class="filter">
+        <form action="/schedule/qyshdush" method="GET">
+            <table>
+                <tr>
+                    <th><label>Zgjedh daten:</label></th>
+                    <th><label>Zgjedh departamentin:</label></th>
+                    <th><label>Zgjedh sallen:</label></th>
+                    <th><label>Shkruaj ID e profesorit:</label></th>
+                    <th rowspan="2">
+                        <input type="submit" value="Filtro">
+                    </th>
+                </tr>
+                <tr>
+                    <td><input type="date" name="date" value="1970-10-01"/></td>
+                    <td>
+                        <select name="department" id="selectDepartment" onclick="selectChanged();">
+                            <option value="Zgjedh Departamentin">Zgjedh Departamentin</option>
+                            <option value="Matematike">Matematike</option>
+                            <option value="Fizike">Fizike</option>
+                            <option value="Kimi">Kimi</option>
+                            <option value="Biologji">Biologji</option>
+                            <option value="Gjeografi">Gjeografi</option>
+                        </select>
+
+                    </td>
+                    <td>
+                        <select name="room" id="selectRoom">
+                            <option value="Zgjedh Sallen" class="Zgjedh Departamentin">Zgjedh Sallen</option>
+                            <option value="1" class="Matematike" hidden>Salla 153</option>
+                            <option value="2" class="Matematike" hidden>Salla 114</option>
+                            <option value="3" class="Matematike" hidden>Salla 113</option>
+                            <option value="4" class="Matematike" hidden>Lab M</option>
+                            <option value="5" class="Matematike" hidden>Lab V</option>
+                            <option value="6" class="Matematike" hidden>Lab B</option>
+                            <option value="7" class="Fizike" hidden>Salla 100</option>
+                            <option value="8" class="Fizike" hidden>Salla 101</option>
+                            <option value="9" class="Biologji" hidden>Salla 200</option>
+                            <option value="10" class="Biologji" hidden>Salla 201</option>
+                            <option value="11" class="Kimi" hidden>Salla 300</option>
+                            <option value="12" class="Kimi" hidden>Salla 301</option>
+                            <option value="13" class="Gjeografi" hidden>Salla 400</option>
+                            <option value="14" class="Gjeografi" hidden>Salla 401</option>
+                        </select>
+                        <script>
+                                function selectChanged() {
+                                    var selectDepartment = document.getElementById("selectDepartment");
+                                    var selectRoomOptions = document.getElementsByClassName(selectDepartment.value);
+                                    var selectRoom = document.getElementById("selectRoom").options;
+                                    for(var i = 1; i<selectRoom.length; i++)
+                                    {
+                                        selectRoom[i].hidden = true;
+                                    }
+
+                                    for (var i = 0; i < selectRoomOptions.length; i++) {
+                                        selectRoomOptions[i].hidden = false;
+                                    }
+                                }
+                            </script>
+                    </td>
+                    <td>
+                        <datalist id="profesoret">
+                            <option>Ermir Rogova</option>
+                            <option>Eliot Bytyci</option>
+                            <option>Korab Rrmoku</option>
+                            <option>Artan Berisha</option>
+                            <option>Faton Berisha</option>
+                        </datalist>
+                        <input type="text" name="professor" >
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="schedules">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Salla</th>
+                <th>Lenda</th>
+                <th>Profesori</th>
+                <th>Departamenti</th>
+                <th>Fillimi</th>
+                <th>Mbarimi</th>
+            </tr>
+            <tr th:each="schedule : ${schedules}">
+                <td th:text="${schedule.ID}"></td>
+                <td th:text="${schedule.roomName}"></td>
+                <td th:text="${schedule.subject}"></td>
+                <td th:text="${schedule.userID}"></td>
+                <td th:text="${schedule.department}"></td>
+                <td th:text="${schedule.startDate}"></td>
+                <td th:text="${schedule.endDate}"></td>
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="addRemove">
+        <form style="float:left" action="/schedule/remove" method="GET"  >
+            <label>Shkruaj ID e orarit:</label><input type="text" name="scheduleID">
+            <input type="submit" value="Fshij orar" id="removeSchedule">
+        </form>
+        <form action="/addSchedule">
+            <input type="submit" value="Shto orar" id="addSchedule" >
+        </form>
+
+
+
+    </div>
+</div>
 </body>
-
 </html>

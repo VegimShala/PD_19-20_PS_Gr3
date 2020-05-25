@@ -41,11 +41,11 @@ public class ScheduleController {
         ModelAndView modelAndView=new ModelAndView();
 
         modelAndView.setViewName("scheduleAdded");
-        //modelAndView.setViewName("indexA");
+        //modelAndView.setViewName("index");
         return modelAndView;
     }
 
-    @RequestMapping()
+    @RequestMapping("/remove")
     public ModelAndView removeSchedules(@RequestParam Long scheduleID)
     {
         Schedule schedule;
@@ -116,7 +116,7 @@ public class ScheduleController {
 
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.addObject("schedules",schedules);
-        modelAndView.setViewName("indexA");
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 

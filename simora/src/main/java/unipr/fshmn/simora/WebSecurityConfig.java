@@ -32,8 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/css/**","/js/**","/images/**").permitAll()
-//                .antMatchers("/addUser").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/css/**","/js/**","/images/**").permitAll()
+                .antMatchers("/addUser").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/addSchedule").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/add").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/schedule/add").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/schedule/remove").access("hasRole('ROLE_ADMIN')")
                 //qitu i shtojme krejt faqet qe dojme me pas access veq njoni prej tyve
                 .anyRequest().permitAll()
                 .and()

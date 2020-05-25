@@ -4,14 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/css/menu.css"/>
     <link rel="stylesheet" href="/css/videoCall.css"/>
+
     <title>WebRTC Video Chat</title>
 </head>
 <body>
 
 </body>
+<div class="menu">
+    <div class="header">
+        <p>SIMORA</p>
+    </div>
+    <div class="photo">
+        <img src="../static/images/Avatar.png" th:src="@{images/Avatar.png}" width="200px" height="200px">
+    </div>
+    <div class="info">
+        <p th:text="${currentUser.ID}"></p>
+        <p><span th:text="${currentUser.firstName}"></span> <span>&nbsp;</span><span th:text="${currentUser.lastName}"></span></p>
+        <p th:text="${currentUser.email}"></p>
+        <p th:text="${currentUser.department}"></p>
+        <p>FSHMN</p>
+    </div>
+    <div style="margin-top: 125px;" class="menuItems">
+        <nav>
+            <ul>
+                <li ><a href="/"> Orari i provimeve </a></li>
+                <hr>
+                <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" > <a href="/videoCall">Kontakto profesoret </a></li>
+                <hr th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> <a href="/addUser">Shto shfrytezues </a></li>
+                <hr th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"> <a href="/videoCall">Kontakto administratorin </a></li>
+                <hr th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+            </ul>
+        </nav>
+    </div>
+    <div class="footer">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Ckyqu" id="logout"/>
+        </form>
+        <a href="recoveryEmail" id="changePass">Ndrysho fjalekalimin</a>
+    </div>
+</div>
 
-<div class="center">
+<div class="content">
     <div class="call">
     <p style="text-align: center">Tap to Change Front/Back Camera</p>
 
@@ -30,45 +67,17 @@
     border-radius: 10px;"></textarea><br/><br>
     <input id="messageInput" type="text" size="80" placeholder="Enter message to send" style="width: 330px;
     height: 50px;
-    float: left;border-radius: 10px;    margin-left: 90px;">
+    float: left;border-radius: 10px; ">
     <button id="sendMessageButton" onclick="sendMessage()">Send Message</button><br/><br/>
     </div>
 
+    <textarea readonly id="logs"></textarea><br/><br/>
 
-    <table style="width:100%">
-        <tr>
-          <th>Outbound Video Stats</th>
-          <th>Inbound Video Stats</th>
-        </tr>
-        <tr>
-          <td><div readonly id="outBoundstats"></div></td>
-          <td><div readonly id="inBoundstats"></div></td>
-        </tr>
-      </table>
 
     </div>
     <br/><br/>
 
 
-
-    <textarea readonly id="logs"></textarea><br/><br/>
-
-</div>
-
-<!--const turnServerIPAddress = "stun.l.google.com:19305";-->
-<!--const turnServerPort = "TURN_SERVER_PORT";-->
-<!--const turnServerUserName = "TURN_SERVER_USERNAME";-->
-<!--const turnServerPassword = "TURN_SERVER_PASSWORD";-->
-<!--iceServers: [-->
-<!--{-->
-<!--urls: 'stun:' + turnServerIPAddress + ':' + turnServerPort-->
-<!--},-->
-<!--{-->
-<!--urls: 'turn:' + turnServerIPAddress + ':' + turnServerPort,-->
-<!--username: turnServerUserName,-->
-<!--credential: turnServerPassword-->
-<!--}-->
-<!--]-->
 <script th:inline="javascript">
     const webSocketConnection = "ws://localhost:8099/socket";
 

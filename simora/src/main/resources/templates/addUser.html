@@ -26,18 +26,22 @@
         <div style="margin-top: 125px;" class="menuItems">
             <nav>
                 <ul>
-                    <li><a href="#"> Orari i provimeve </a></li>
+                    <li ><a href="/"> Orari i provimeve </a></li>
                     <hr>
-                    <li> <a href="#">Kontakto profesoret </a></li>
-                    <hr>
-                    <li> <a href="#">Shto shfrytezues </a></li>
-                    <hr>
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" > <a href="/videoCall">Kontakto profesoret </a></li>
+                    <hr th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> <a href="/addUser">Shto shfrytezues </a></li>
+                    <hr th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"> <a href="/videoCall">Kontakto administratorin </a></li>
+                    <hr th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
                 </ul>
             </nav>
         </div>
         <div class="footer">
-            <a href="#" id="logout">Ckyqu</a>
-            <a href="#" id="changePass">Ndrysho fjalekalimin</a>
+            <form th:action="@{/logout}" method="post">
+                <input style=" all: initial; color:white; cursor:pointer;" type="submit" value="Ckyqu"/>
+            </form>
+            <a href="recoveryEmail" id="changePass">Ndrysho fjalekalimin</a>
         </div>
     </div>
 

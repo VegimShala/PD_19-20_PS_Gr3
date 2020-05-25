@@ -23,15 +23,7 @@ public class InitialtController {
         return "videoCall";
     }
 
-    @RequestMapping("/indexA")
-    public String indexA()
-    {
-        return "indexA";
-    }
 
-
-    @RequestMapping("/indexP")
-    public String indexP() {
-        return "indexP";
-    }
+    @RequestMapping("/")
+    public String index() {return "index";}
 }
