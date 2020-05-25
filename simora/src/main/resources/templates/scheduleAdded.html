@@ -17,20 +17,20 @@
         <img src="../static/images/Avatar.png" th:src="@{images/Avatar.png}" width="200px" height="200px">
     </div>
     <div class="info">
-        <p>ID</p>
-        <p>Emri Mbiemri</p>
-        <p>Email</p>
-        <p>Departamenti i DEPT</p>
+        <p th:text="${currentUser.ID}"></p>
+        <p><span th:text="${currentUser.firstName}"></span> <span>&nbsp;</span><span th:text="${currentUser.lastName}"></span></p>
+        <p th:text="${currentUser.email}"></p>
+        <p th:text="${currentUser.department}"></p>
         <p>FSHMN</p>
     </div>
     <div style="margin-top: 125px;" class="menuItems">
         <nav>
             <ul>
-                <li><a href="#"> Orari i provimeve </a></li>
+                <li><a href="/indexA"> Orari i provimeve </a></li>
                 <hr>
-                <li> <a href="#">Kontakto profesoret </a></li>
+                <li> <a href="/videoCall">Kontakto profesoret </a></li>
                 <hr>
-                <li> <a href="#">Shto shfrytezues </a></li>
+                <li> <a href="/addUser">Shto shfrytezues </a></li>
                 <hr>
             </ul>
         </nav>
