@@ -85,7 +85,7 @@ public class ScheduleController {
         Iterable<Schedule> schedules =  scheduleRepository.findAll();
         for(Schedule s : schedules)
         {
-            if(ID == s.getID())
+            if(ID.equals(s.getID()))
             {
                 schedule = s;
             }
