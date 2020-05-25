@@ -17,10 +17,10 @@
         <img src="../static/images/Avatar.png" th:src="@{~/images/Avatar.png}" width="200px" height="200px">
     </div>
     <div class="info">
-        <p>ID</p>
-        <p>Emri Mbiemri</p>
-        <p>Email</p>
-        <p>Departamenti i DEPT</p>
+        <p th:text="${currentUser.ID}"></p>
+        <p><span th:text="${currentUser.firstName}"></span> <span>&nbsp;</span><span th:text="${currentUser.lastName}"></span></p>
+        <p th:text="${currentUser.email}"></p>
+        <p th:text="${currentUser.department}"></p>
         <p>FSHMN</p>
     </div>
     <div style="margin-top: 125px;" class="menuItems">
@@ -48,7 +48,7 @@
 <div class="content" style="text-align:center;">
     <h1 style="color:green; margin-top:350px;">Orari u largua me sukses!</h1>
     <button style=" width: 250px; height: 50px; border-radius: 15px; background-color: #9A2323;color: white;font-size:20px">
-        <a href="../index" >Kthehu te faqja kryesore</a>
+        <a href="/" >Kthehu te faqja kryesore</a>
     </button>
 </div>
 </body>
