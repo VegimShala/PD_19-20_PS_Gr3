@@ -25,6 +25,7 @@ public class SocketHandler extends TextWebSocketHandler {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) {
                 JsonNode jsonNode = objectMapper.readTree(message.getPayload());
                 if(((UsernamePasswordAuthenticationToken)webSocketSession.getPrincipal()).getAuthorities().stream().anyMatch(ga -> ga.getAuthority().equals("ROLE_ADMIN"))&&jsonNode.get("type").toString().equals("\"offer\"")) {
+                    //kontaktohen vetem adminat
                     webSocketSession.sendMessage(message);
                 }else{
                     if(!jsonNode.get("type").toString().equals("\"offer\"")) {

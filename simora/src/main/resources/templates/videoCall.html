@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/menu.css"/>
     <link rel="stylesheet" href="/css/videoCall.css"/>
 
-    <title>WebRTC Video Chat</title>
+    <title>SIMORA - Kontakto</title>
 </head>
 <body>
 
@@ -50,25 +50,25 @@
 
 <div class="content">
     <div class="call">
-    <p style="text-align: center">Tap to Change Front/Back Camera</p>
+    <p style="text-align: center">Prek kameren tende nese deshiron te nderrosh kameren nga para prapa dhe anasjelltas(telefon)</p>
 
     <div id="videoContainer">
         <video id="localVideo" onclick="switchMobileCamera()" muted autoplay playsinline></video>
         <video id="remoteVideo" autoplay playsinline></video>
     </div>
-    <button id="sendOfferButton" onclick="createAndSendOffer()">Call</button>
-    <button id="answerButton" onclick="createAndSendAnswer()">Answer</button>
-    <button id="hangUpButton" onclick="disconnectRTCPeerConnection()">Hang Up</button><br/><br/>
+    <button style="background-color: green" id="sendOfferButton" onclick="createAndSendOffer()">Thirr</button>
+    <button id="answerButton" onclick="createAndSendAnswer()">Pergjigju</button>
+    <button id="hangUpButton" onclick="disconnectRTCPeerConnection()">Mbylle</button><br/><br/>
 
     </div>
     <div class="message">
         <textarea readonly id="chatTextArea" style="width: 500px;
     height: 250px;    border: 4px solid #AB1112;
     border-radius: 10px;"></textarea><br/><br>
-    <input id="messageInput" type="text" size="80" placeholder="Enter message to send" style="width: 330px;
+    <input id="messageInput" type="text" size="80" placeholder="Shkruaj mesazhin per ta derguar..." style="width: 330px;
     height: 50px;
     float: left;border-radius: 10px; ">
-    <button id="sendMessageButton" onclick="sendMessage()">Send Message</button><br/><br/>
+    <button id="sendMessageButton" onclick="sendMessage()">Dergo mesazhin</button><br/><br/>
     </div>
 
     <textarea readonly id="logs"></textarea><br/><br/>
@@ -119,13 +119,21 @@
 
     function disableAllButtons(){
         document.getElementById("sendOfferButton").disabled = true;
+        document.getElementById("sendOfferButton").style.backgroundColor = "red";
+
         document.getElementById("answerButton").disabled = true;
+        document.getElementById("answerButton").style.backgroundColor = "red";
+
         document.getElementById("sendMessageButton").disabled = true;
+         document.getElementById("sendMessageButton").style.backgroundColor = "red";
+
         document.getElementById("hangUpButton").disabled = true;
+         document.getElementById("hangUpButton").style.backgroundColor = "red";
+
     }
 
     /*
-        Send messages via Data Channel
+        Dergimi i mesazhit me dataChannel
     */
     function sendMessage(){
         var messageText = document.getElementById("messageInput").value;
@@ -134,7 +142,7 @@
             "message": messageText
         }));
 
-        document.getElementById("chatTextArea").value += 'You:'+messageText + '\n';
+        document.getElementById("chatTextArea").value += 'Ti:'+messageText + '\n';
     }
 
     function disconnectRTCPeerConnection(){
@@ -142,7 +150,7 @@
     }
 
     /*
-        Connect to the web socket and handle recieved messages from web sockets
+       Lidhja me websocket
     */
     function connectToWebSocket(){
         socket = new WebSocket(webSocketConnection);
@@ -180,7 +188,11 @@
         socket.onclose = function(event) {
             log('WebSocket Connection Closed. Please Reload the page.');
             document.getElementById("sendOfferButton").disabled = true;
+            document.getElementById("sendOfferButton").style.backgroundColor = "red";
+
             document.getElementById("answerButton").disabled = true;
+            document.getElementById("answerButton").style.backgroundColor = "red";
+
         };
     }
 
@@ -250,6 +262,8 @@
             channel = event.channel;
             setChannelEvents(channel);
             document.getElementById("sendMessageButton").disabled = false;
+            document.getElementById("sendMessageButton").style.backgroundColor = "green";
+
         };
 
         // This event sends the ice candidates generated from Stun or Turn server to the Receiver over web socket
@@ -268,16 +282,22 @@
             }
         }
 
-        // This event logs messages and handles button state according to WebRTC connection state changes
+        // ne nderrim te statusit si te reagojme
         connection.onconnectionstatechange = function(event) {
             switch(connection.connectionState) {
                 case "connected":
                     log("Web RTC Peer Connection Connected.");
                     document.getElementById("answerButton").disabled = true;
-                    //document.getElementById("answerButton").style.background-color = "green";
+                    document.getElementById("answerButton").style.backgroundColor = "red";
                     document.getElementById("sendOfferButton").disabled = true;
+                    document.getElementById("sendOfferButton").style.backgroundColor = "red";
+
                     document.getElementById("hangUpButton").disabled = false;
+                    document.getElementById("hangUpButton").style.backgroundColor = "green";
                     document.getElementById("sendMessageButton").disabled = false;
+                    document.getElementById("sendMessageButton").style.backgroundColor = "green";
+
+
                     break;
                 case "disconnected":
                     log("Web RTC Peer Connection Disconnected. Please reload the page to reconnect.");
@@ -299,12 +319,12 @@
 
         log("Web RTC Peer Connection Created.");
         document.getElementById("sendOfferButton").disabled = false;
+        document.getElementById("sendOfferButton").style.backgroundColor = "green";
+
     }
 
     /*
-        Creates and sends the Offer to the Receiver
-        Creates a Data channel for exchanging text messages
-        This function is invoked by the Caller
+        Krijon dhe dergon oferten per  te komunikuar
     */
     function createAndSendOffer(){
         if(channel){
@@ -320,7 +340,7 @@
             offer => {
                 log('Sent The Offer.');
 
-                // Send Offer to other peer
+                // dergo oferten tek bashkebiseduesi
                 socket.send(JSON.stringify(
                     {
                         action: 'onMessage',
@@ -330,7 +350,7 @@
                     }
                 ));
 
-                // Set Offer for negotiation
+                // vendose oferten
                 connection.setLocalDescription(offer);
             },
             error => {
@@ -341,8 +361,7 @@
     }
 
     /*
-        Creates and sends the Answer to the Caller
-        This function is invoked by the Receiver
+        krijon dhe dergon pranimin e ofertes
     */
     function createAndSendAnswer(){
 
@@ -372,7 +391,7 @@
     }
 
     /*
-        Accepts ICE candidates received from the Caller
+        Pranon ICE kandidatet nga thirresi
     */
     function handleCandidate(candidate, id){
 
@@ -384,25 +403,30 @@
     }
 
     /*
-        Accepts Offer received from the Caller
+        Pranon thirrjen nga perdoruesi
     */
     function handleOffer(offer, id){
 
-        // Avoid accepting the Offer if this is a message created by the current peer
+        // Injoron nese ka krijuar vete oferten
         if(clientId != id){
             log("Recieved The Offer.");
             connection.setRemoteDescription(new RTCSessionDescription(offer));
             document.getElementById("answerButton").disabled = false;
+            document.getElementById("answerButton").style.backgroundColor = "green";
+
+
             document.getElementById("sendOfferButton").disabled = true;
+            document.getElementById("sendOfferButton").style.backgroundColor = "red";
+
         }
     }
 
     /*
-        Accetps Answer received from the Receiver
+        Pranon pranimin nga admini
     */
     function handleAnswer(answer, id){
 
-        // Avoid accepting the Answer if this is a message created by the current peer
+        // Injoron nese ka pranuar vete kete
         if(clientId != id){
             log("Recieved The Answer");
             connection.setRemoteDescription(new RTCSessionDescription(answer));
@@ -410,7 +434,7 @@
     }
 
     /*
-        Generate a unique ID for the peer
+        Gjeneron nje id unike per cliientID
     */
     function uuidv4() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -419,13 +443,11 @@
         });
     }
 
-    /*
-        Handle Data Channel events
-    */
+
     function setChannelEvents(channel) {
         channel.onmessage = function (event) {
             var data = JSON.parse(event.data);
-            document.getElementById("chatTextArea").value += 'Peer: '+data.message + '\n';
+            document.getElementById("chatTextArea").value += 'Bashkebiseduesi: '+data.message + '\n';
         };
 
         channel.onerror = function (event) {
@@ -440,7 +462,7 @@
     }
 
     /*
-        Switch between front and back camera when opened in a mobile browser
+        Kur te je ne mobil mund ta nderrosh kameren me klikim
     */
     function switchMobileCamera(){
         if (cameraMode == "user") {
@@ -453,8 +475,6 @@
     }
 
     function pushStats(){
-        let inBoundStatsDiv = document.getElementById("inBoundstats");
-        let outBoundstatsDiv = document.getElementById("outBoundstats");
 
         window.setInterval(function() {
             connection.getStats(null).then(stats => {
@@ -493,11 +513,9 @@
 
                     let inboundVideoWidth = document.getElementById("remoteVideo").videoWidth;
                     let inboundVideoHeight = document.getElementById("remoteVideo").videoHeight;
-                    inBoundStatsDiv.innerHTML = `<strong>Bitrate: </strong>${inBoundBitrate} KB/sec<br/><strong>Video dimensions: </strong> ${inboundVideoWidth}x${inboundVideoHeight}px<br/>`;
 
                     let outboundVideoWidth = document.getElementById("localVideo").videoWidth;
                     let outboundVideoHeight = document.getElementById("localVideo").videoHeight;
-                    outBoundstatsDiv.innerHTML = `<strong>Bitrate: </strong>${outBoundBitrate} KB/sec<br/><strong>Video dimensions: </strong> ${outboundVideoWidth}x${outboundVideoHeight}px<br/>`;
                 });
 
             });

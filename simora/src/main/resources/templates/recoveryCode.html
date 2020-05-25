@@ -19,21 +19,18 @@
     </div>
 
     <div class="login">
-        <form action="#" method="post">
+        <form action="/checkPassword" method="get">
             <img src="../static/images/logo.png" th:src="@{images/logo.png}" alt="logo e UP" width="200px"/>
 
             <div class="id">
 
-                <p id="recover">Shkruani kodin pesëshifror:</p>
-                <input id="code" class="input-field" type="text"  maxlength="5" ><br>
-
-
+                <p id="recover">Shkruani kodin pesëshifror qe e keni ne email:</p>
+                <input id="code" class="input-field" type="text"  name="code" maxlength="5" ><br>
 
                 <input type="submit" value="Verifiko">
             </div>
 
         </form>
-        <p><a href="#">Keni harruar fjalekalimin?</a></p>
     </div>
 </div>
 

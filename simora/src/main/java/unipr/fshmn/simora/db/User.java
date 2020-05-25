@@ -14,6 +14,7 @@ public class User {
     private Boolean enabled;
     private String department;
     private boolean isAdmin;
+    private String code;
 
     public User() {
     }
@@ -80,5 +81,13 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

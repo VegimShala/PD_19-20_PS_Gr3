@@ -19,21 +19,21 @@
     </div>
 
     <div class="login">
-        <form action="#" method="post">
+        <form action="changePassword" method="get">
             <img src="../../static/images/logo.png" th:src="@{images/logo.png}" alt="logo e UP" width="200px"/>
 
             <div class="id">
                 <label>Shkruani emailin:</label><br>
                 <i class="fa fa-user icon"></i>
-                <input class="input-field" type="text" placeholder="Shkruaj emailin..." name="usrnm"><br>
+                <input class="input-field" type="text" placeholder="Shkruaj ID..." name="ID"><br>
                 <p id="recover">Ne do të dërgojmë një kod <br>pesëshifror në emailin tuaj</p>
-
-
                 <input type="submit" value="Dergo">
+                <div th:if="${param.error}" style="text-align:center;font-size:14px;color:red;">
+                    ID jo valide
+                </div>
             </div>
 
         </form>
-        <p><a href="#">Keni harruar fjalekalimin?</a></p>
     </div>
 </div>
 

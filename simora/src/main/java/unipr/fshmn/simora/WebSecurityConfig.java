@@ -7,12 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 
@@ -37,9 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/addSchedule").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/user/add").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/schedule/add").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/schedule/remove").access("hasRole('ROLE_ADMIN')")
-                //qitu i shtojme krejt faqet qe dojme me pas access veq njoni prej tyve
-                .anyRequest().permitAll()
+                .antMatchers("/schedule/remove").access("hasRole('ROLE_ADMIN')")//vetem roli i adminit ka te drejte te hyje ne keto faqe
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
