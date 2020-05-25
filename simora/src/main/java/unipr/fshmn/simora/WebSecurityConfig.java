@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/css/**","/js/**","/images/**").permitAll()
                 .antMatchers("/addUser").access("hasRole('ROLE_ADMIN')")
                 //qitu i shtojme krejt faqet qe dojme me pas access veq njoni prej tyve
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")

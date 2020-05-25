@@ -1,4 +1,4 @@
-<html>
+<html  xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>WebRTC demo</title>
@@ -52,10 +52,11 @@ input {
     <!--WebRTC related code-->
     <button type="button" class="btn btn-primary" onclick='createOffer()'>Create
         Offer</button>
+    <button type="button" class="btn btn-primary" onclick='startVideoCall()'>Video</button>
     <input id="messageInput" type="text" class="form-control"
            placeholder="message">
     <button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
-    <script src="client.js"></script>
+    <script th:src="@{/js/client.js}"></script>
     <!--WebRTC related code-->
 
 </div>
