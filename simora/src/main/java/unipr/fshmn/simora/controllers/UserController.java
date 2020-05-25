@@ -45,6 +45,8 @@ public class UserController {
         n.setEnabled(Boolean.TRUE);
         n.setDepartment(department);
         userRepository.save(n);
+        emailService.sendSimpleMessage(email,"SIMORA - Regjistrimi ne sistem","Perdoruesi ne SIMORA u krijua, " +
+                "fjalekalimi juaj eshte: " + randomPassword);
         ModelAndView modelAndView=new ModelAndView();
         //Me ja qu ni email me passwordin nashta
        // modelAndView.setViewName("indexA");

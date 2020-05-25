@@ -45,6 +45,81 @@ public class ScheduleController {
         return modelAndView;
     }
 
+    @RequestMapping()
+    public ModelAndView removeSchedules(@RequestParam Long scheduleID)
+    {
+        Schedule schedule;
+        if (scheduleRepository.findById(scheduleID).isPresent())
+        {
+            schedule = scheduleRepository.findById(scheduleID).get();
+            scheduleRepository.delete(schedule);
+        }
+        else
+        {
+            System.out.println("This Schedule ID doesn't exist");
+        }
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("scheduleRemoved");
+        return modelAndView;
+    }
+
+    @RequestMapping("/qyshdush")
+    public ModelAndView showSchedules(@RequestParam String date, @RequestParam String department, @RequestParam String room, @RequestParam String professor)
+    {
+        System.out.println(date);
+        System.out.println(department);
+        System.out.println(room);
+        System.out.println(professor);
+
+        if(date.equals("1970-10-01")){ date = ""; }
+        if(department.equals("Zgjedh Departamentin")) { department = ""; }
+        if(room.equals("Zgjedh Sallen")) { room = ""; }
+        professor = professor.trim();
+        System.out.println(date);
+        System.out.println(department);
+        Iterable<ScheduleDTO> schedules = (Iterable<ScheduleDTO>)
+                scheduleRepository.gjej
+                        ("%"+date+"%","%"+department+"%","%"+room+"%","%"+professor+"%").stream().map(this::toDTO).collect(Collectors.toList());
+
+        if(!room.equals("Zgjedh Sallen"))
+        {
+            Long roomID = getRoomId(room);
+            if(!professor.trim().equals(""))
+            {
+                Long profId = 0l;
+                try {profId = Long.parseLong(professor);}
+                catch (NumberFormatException e) {System.out.println("Couldn't parse to Long");}
+
+                schedules = (Iterable<ScheduleDTO>) scheduleRepository.findByStartDateContainingAndDepartmentContainingAndRoomIDLikeAndUserIDLike
+                                (date,department,roomID,profId).stream().map(this::toDTO).collect(Collectors.toList());
+            }
+            else
+            {
+                schedules = (Iterable<ScheduleDTO>) scheduleRepository.findByStartDateContainingAndDepartmentAndRoomID
+                                (date,department,roomID).stream().map(this::toDTO).collect(Collectors.toList());
+            }
+        }
+        else
+        {
+            if(!professor.trim().equals("")) {
+                Long profId = 0l;
+                try {
+                    profId = Long.parseLong(professor);
+                } catch (NumberFormatException e) {
+                    System.out.println("Couldn't parse to Long");
+                }
+
+                schedules = (Iterable<ScheduleDTO>) scheduleRepository.findByStartDateContainingAndDepartmentAndUserID
+                                (date, department, profId).stream().map(this::toDTO).collect(Collectors.toList());
+            }
+        }
+
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("schedules",schedules);
+        modelAndView.setViewName("indexA");
+        return modelAndView;
+    }
+
     @GetMapping(path="/all")
     public @ResponseBody
     Iterable<Schedule> getAllSchedules() {
@@ -79,21 +154,6 @@ public class ScheduleController {
         return roomName;
     }
 
-    public Schedule getSchedule(Long ID)
-    {
-        Schedule schedule = new Schedule();
-        Iterable<Schedule> schedules =  scheduleRepository.findAll();
-        for(Schedule s : schedules)
-        {
-            if(ID.equals(s.getID()))
-            {
-                schedule = s;
-            }
-        }
-        System.out.println(schedule.getID());
-        return schedule;
-    }
-
     public ScheduleDTO toDTO(Schedule schedule)
     {
         ScheduleDTO obj = new ScheduleDTO();
@@ -107,45 +167,8 @@ public class ScheduleController {
         return obj;
     }
 
-    /*@RequestMapping(path="/indexP") // Map ONLY POST Requests
-    public ModelAndView addNewUser (@RequestParam String date, @RequestParam String department, @RequestParam String room) {
 
 
-        s.setDepartment(department);
-        s.setRoomID(getRoomId(room));
-
-        scheduleRepository.save(s);
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("indexA");
-        return modelAndView;
-    }*/
-
-    @RequestMapping("/indexP")
-    public ModelAndView schedules()
-    {
-        //Ne baze te USER-it, pjesa tjeter eshte krejt e njejte
-        Iterable<ScheduleDTO> schedules = (Iterable<ScheduleDTO>)
-                scheduleRepository.findBySubjectAndDepartment("Programimi i Distribuuar","Matematike").stream().map(this::toDTO).collect(Collectors.toList());
-        /*for(Schedule schedule : schedules)
-        {
-            schedule.setRoomID(getRoomName(schedule.getRoomID()));
-        }*/
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("schedules",schedules);
-        modelAndView.setViewName("indexP");
-        return modelAndView;
-    }
-
-    @RequestMapping()
-    public ModelAndView removeSchedules(@RequestParam Long scheduleID)
-    {
-        System.out.println(6565);
-        Schedule schedule = getSchedule(scheduleID);
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("schedule",schedule);
-        modelAndView.setViewName("redirect:indexA");
-        return modelAndView;
-    }
 
 
 }

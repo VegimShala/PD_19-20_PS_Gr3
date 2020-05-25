@@ -41,66 +41,78 @@
     </div>
 
     <div class="content">
-        <div class="hover_bkgr_fricc" th:if="${schedule}">
-            <span class="helper"></span>
-            <div>
-                <div class="popupCloseButton">X</div>
-                <h3 >Jeni te sigurt qe doni te fshini orarin me keto te dhena?</h3>
-                <p th:each="s : ${schedule}" ><b>ID:</b> <span th:text="${s.ID}"></span></p>
-                <p th:each="s : ${schedule}"><b>Salla:</b> <span th:text="${s.roomID}"></span></p>
-                <p th:each="s : ${schedule}"><b>Lenda:</b> <span th:text="${s.subject}"></span></p>
-                <p th:each="s : ${schedule}"><b>Profesori:</b> <span th:text="${s.userID}"></span></p>
-                <p th:each="s : ${schedule}"><b>Data:</b> <span th:text="${s.department}"></span></p>
-                <p th:each="s : ${schedule}"><b>Fillimi:</b> <span th:text="${s.startDate}"></span></p>
-                <p th:each="s : ${schedule}"><b>Mbarimi:</b> <span th:text="${s.endDate}"></span></p>
-                <form action="#" method="GET">
-                    <input style="margin-left: 50px;" type="submit" value="PO">
-                    <input style="margin-right: 50px;"type="submit" value="JO">
-
-                </form>
-            </div>
-        </div>
         <div class="contentTitle">
             <h2>ORARI I PROVIMEVE</h2>
         </div>
 
         <div style="width: 95%;" class="filter">
-            <form action="#" method="GET">
+            <form action="/schedule/qyshdush" method="GET">
                 <table>
                     <tr>
                         <th><label>Zgjedh daten:</label></th>
                         <th><label>Zgjedh departamentin:</label></th>
                         <th><label>Zgjedh sallen:</label></th>
-                        <th><label>Zgjedh profesorin:</label></th>
+                        <th><label>Shkruaj ID e profesorit:</label></th>
                         <th rowspan="2">
                             <input type="submit" value="Filtro">
                         </th>
                     </tr>
                     <tr>
-                        <td><input type="date"/></td>
+                        <td><input type="date" name="date" value="1970-10-01"/></td>
                         <td>
-                            <select>
-                            <option>Matematike</option>
-                            <option>Fizike</option>
-                            <option>Kimi</option>
-                            <option>Biologji</option>
-                            <option>Gjeografi</option>
-        
+                            <select name="department" id="selectDepartment" onclick="selectChanged();">
+                                <option value="Zgjedh Departamentin">Zgjedh Departamentin</option>
+                                <option value="Matematike">Matematike</option>
+                                <option value="Fizike">Fizike</option>
+                                <option value="Kimi">Kimi</option>
+                                <option value="Biologji">Biologji</option>
+                                <option value="Gjeografi">Gjeografi</option>
                             </select>
+
                         </td>
                         <td>
-                            <select>
-                                <option>Salla 153</option>
-                                <option>Salla 103</option>
+                            <select name="room" id="selectRoom">
+                                <option value="Zgjedh Sallen" class="Zgjedh Departamentin">Zgjedh Sallen</option>
+                                <option value="1" class="Matematike" hidden>Salla 153</option>
+                                <option value="2" class="Matematike" hidden>Salla 114</option>
+                                <option value="3" class="Matematike" hidden>Salla 113</option>
+                                <option value="4" class="Matematike" hidden>Lab M</option>
+                                <option value="5" class="Matematike" hidden>Lab V</option>
+                                <option value="6" class="Matematike" hidden>Lab B</option>
+                                <option value="7" class="Fizike" hidden>Salla 100</option>
+                                <option value="8" class="Fizike" hidden>Salla 101</option>
+                                <option value="9" class="Biologji" hidden>Salla 200</option>
+                                <option value="10" class="Biologji" hidden>Salla 201</option>
+                                <option value="11" class="Kimi" hidden>Salla 300</option>
+                                <option value="12" class="Kimi" hidden>Salla 301</option>
+                                <option value="13" class="Gjeografi" hidden>Salla 400</option>
+                                <option value="14" class="Gjeografi" hidden>Salla 401</option>
                             </select>
+                            <script>
+                                function selectChanged() {
+                                    var selectDepartment = document.getElementById("selectDepartment");
+                                    var selectRoomOptions = document.getElementsByClassName(selectDepartment.value);
+                                    var selectRoom = document.getElementById("selectRoom").options;
+                                    for(var i = 1; i<selectRoom.length; i++)
+                                    {
+                                        selectRoom[i].hidden = true;
+                                    }
+
+                                    for (var i = 0; i < selectRoomOptions.length; i++) {
+                                        selectRoomOptions[i].hidden = false;
+                                    }
+                                }
+                            </script>
                         </td>
                         <td>
-                            <datalist id="professorsM">
+                            <datalist id="profesoret">
                                 <option>Ermir Rogova</option>
-                                <option>Eliot Bytyqi</option>
+                                <option>Eliot Bytyci</option>
+                                <option>Korab Rrmoku</option>
                                 <option>Artan Berisha</option>
+                                <option>Faton Berisha</option>
                             </datalist>
-                            <input type="text" list="professorsM">
+                            <input type="text" name="professor" >
                         </td>
                     </tr>
                 </table>
@@ -119,7 +131,7 @@
                 </tr>
                 <tr th:each="schedule : ${schedules}">
                     <td th:text="${schedule.ID}"></td>
-                    <td th:text="${schedule.roomID}"></td>
+                    <td th:text="${schedule.roomName}"></td>
                     <td th:text="${schedule.subject}"></td>
                     <td th:text="${schedule.userID}"></td>
                     <td th:text="${schedule.department}"></td>
@@ -129,7 +141,7 @@
             </table>
         </div>
         <div class="addRemove">
-            <form action="/schedule" method="GET"  >
+            <form action="#" method="GET"  >
                 <label>Shkruaj ID e orarit:</label><input type="text" name="scheduleID">
                 <input type="submit" value="Fshij orar" id="removeSchedule">
             </form>
@@ -140,11 +152,8 @@
                 <label>Profesori: Alban Elezi</label> <br>
                 <label>Lenda: Prog Dist</label> <br>
                 <label>Salla: 153</label>
-                
-
-                    
-                </script>
-
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="/js/popup.js"></script>
 
         </div>
     </div>
