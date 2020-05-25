@@ -42,13 +42,14 @@
             <h2>ORARI I PROVIMEVE</h2>
         </div>
 
-        <div class="filter">
+        <div style="width: 95%;" class="filter">
             <form action="#" method="GET">
                 <table>
                     <tr>
                         <th><label>Zgjedh daten:</label></th>
                         <th><label>Zgjedh departamentin:</label></th>
                         <th><label>Zgjedh sallen:</label></th>
+                        <th><label>Zgjedh profesorin:</label></th>
                         <th rowspan="2">
                             <input type="submit" value="Filtro">
                         </th>
@@ -57,12 +58,12 @@
                         <td><input type="date"/></td>
                         <td>
                             <select>
-                            <option>Matematike</option>
-                            <option>Fizike</option>
-                            <option>Kimi</option>
-                            <option>Biologji</option>
-                            <option>Gjeografi</option>
-        
+                                <option>Matematike</option>
+                                <option>Fizike</option>
+                                <option>Kimi</option>
+                                <option>Biologji</option>
+                                <option>Gjeografi</option>
+
                             </select>
                         </td>
                         <td>
@@ -70,6 +71,14 @@
                                 <option>Salla 153</option>
                                 <option>Salla 103</option>
                             </select>
+                        </td>
+                        <td>
+                            <datalist id="professorsM">
+                                <option>Ermir Rogova</option>
+                                <option>Eliot Bytyqi</option>
+                                <option>Artan Berisha</option>
+                            </datalist>
+                            <input type="text" list="professorsM">
                         </td>
                     </tr>
                 </table>
@@ -82,28 +91,20 @@
                     <th>Salla</th>
                     <th>Lenda</th>
                     <th>Profesori</th>
-                    <th>Data</th>
+                    <th>Departamenti</th>
                     <th>Fillimi</th>
                     <th>Mbarimi</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Salla 153</td>
-                    <td>Programimi i Distribuar</td>
-                    <td>Ermir Rogova</td>
-                    <td>25.07.2020</td>
-                    <td>12:00</td>
-                    <td>13:30</td>
+                <tr th:each="schedule : ${schedules}">
+                    <td th:text="${schedule.ID}"></td>
+                    <td th:text="${schedule.roomName}"></td>
+                    <td th:text="${schedule.subject}"></td>
+                    <td th:text="${schedule.userID}"></td>
+                    <td th:text="${schedule.department}"></td>
+                    <td th:text="${schedule.startDate}"></td>
+                    <td th:text="${schedule.endDate}"></td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Salla 153</td>
-                    <td>Programimi i Distribuar</td>
-                    <td>Ermir Rogova</td>
-                    <td>25.07.2020</td>
-                    <td>12:00</td>
-                    <td>13:30</td>
-                </tr>
+
             </table>
         </div>
     </div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <!-- Add icon library -->
@@ -8,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/login.css}"
           href="../css/login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="container">
@@ -21,7 +21,7 @@
     <div class="login">
 
         <form th:action="@{/login}" method="post">
-            <img src="../static/images/logo.png" th:src="@{images/logo.png}" alt="logo e UP" width="200px"/>
+        <img src="../static/images/logo.png" th:src="@{images/logo.png}" alt="logo e UP" width="200px"/>
 
             <div class="id">
                 <label>Perdoruesi:</label><br>

@@ -41,18 +41,18 @@
     </div>
 
     <div class="content">
-        <div class="hover_bkgr_fricc">
+        <div class="hover_bkgr_fricc" th:if="${schedule}">
             <span class="helper"></span>
             <div>
                 <div class="popupCloseButton">X</div>
-                <h3>Jeni te sigurt qe doni te fshini orarin me keto te dhena?</h3>
-                <p><b>ID:</b> 4</p>
-                <p><b>Salla:</b> Salla 153</p>
-                <p><b>Lenda:</b> Programimi i Distribuar</p>
-                <p><b>Profesori:</b> Ermir Rogova</p>
-                <p><b>Data:</b> 22.06.2020</p>
-                <p><b>Fillimi:</b> 10:00</p>
-                <p><b>Mbarimi:</b> 11:30</p>
+                <h3 >Jeni te sigurt qe doni te fshini orarin me keto te dhena?</h3>
+                <p th:each="s : ${schedule}" ><b>ID:</b> <span th:text="${s.ID}"></span></p>
+                <p th:each="s : ${schedule}"><b>Salla:</b> <span th:text="${s.roomID}"></span></p>
+                <p th:each="s : ${schedule}"><b>Lenda:</b> <span th:text="${s.subject}"></span></p>
+                <p th:each="s : ${schedule}"><b>Profesori:</b> <span th:text="${s.userID}"></span></p>
+                <p th:each="s : ${schedule}"><b>Data:</b> <span th:text="${s.department}"></span></p>
+                <p th:each="s : ${schedule}"><b>Fillimi:</b> <span th:text="${s.startDate}"></span></p>
+                <p th:each="s : ${schedule}"><b>Mbarimi:</b> <span th:text="${s.endDate}"></span></p>
                 <form action="#" method="GET">
                     <input style="margin-left: 50px;" type="submit" value="PO">
                     <input style="margin-right: 50px;"type="submit" value="JO">
@@ -113,45 +113,39 @@
                     <th>Salla</th>
                     <th>Lenda</th>
                     <th>Profesori</th>
-                    <th>Data</th>
+                    <th>Departamenti</th>
                     <th>Fillimi</th>
                     <th>Mbarimi</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Salla 153</td>
-                    <td>Programimi i Distribuar</td>
-                    <td>Ermir Rogova</td>
-                    <td>25.07.2020</td>
-                    <td>12:00</td>
-                    <td>13:30</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Salla 153</td>
-                    <td>Programimi i Distribuar</td>
-                    <td>Ermir Rogova</td>
-                    <td>25.07.2020</td>
-                    <td>12:00</td>
-                    <td>13:30</td>
+                <tr th:each="schedule : ${schedules}">
+                    <td th:text="${schedule.ID}"></td>
+                    <td th:text="${schedule.roomID}"></td>
+                    <td th:text="${schedule.subject}"></td>
+                    <td th:text="${schedule.userID}"></td>
+                    <td th:text="${schedule.department}"></td>
+                    <td th:text="${schedule.startDate}"></td>
+                    <td th:text="${schedule.endDate}"></td>
                 </tr>
             </table>
         </div>
         <div class="addRemove">
-            <form action="#" method="GET">
-                <label>Shkruaj ID e orarit:</label><input type="text">
+            <form action="/schedule" method="GET"  >
+                <label>Shkruaj ID e orarit:</label><input type="text" name="scheduleID">
                 <input type="submit" value="Fshij orar" id="removeSchedule">
-                <input type="submit" value="Shto orar" id="addSchedule">
+            </form>
+            <form>
+                <input type="submit" value="Shto orar" id="addSchedule" >
+            </form>
                 <br>
                 <label>Profesori: Alban Elezi</label> <br>
                 <label>Lenda: Prog Dist</label> <br>
                 <label>Salla: 153</label>
                 
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                <script src="/pages/popup.js">
+
                     
                 </script>
-            </form>
+
+
         </div>
     </div>
 </body>

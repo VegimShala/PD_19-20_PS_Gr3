@@ -1,15 +1,10 @@
 package unipr.fshmn.simora.db;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-@Entity
-public class Schedule {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long ID;
-    private Long roomID;
+import java.time.LocalDateTime;
+
+public class ScheduleDTO {private Long ID;
+    private String roomName;
     private String subject;
     private String department;
     private Long userID;
@@ -20,19 +15,19 @@ public class Schedule {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate.toString();
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate.toString();
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public Schedule() {
+    public ScheduleDTO() {
     }
 
     public String getDepartment() {
@@ -51,12 +46,12 @@ public class Schedule {
         this.ID = ID;
     }
 
-    public Long getRoomID() {
-        return roomID;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setRoomID(Long roomID) {
-        this.roomID = roomID;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getSubject() {
@@ -74,7 +69,6 @@ public class Schedule {
     public void setUserID(Long userID) {
         this.userID = userID;
     }
-
 
 
 }

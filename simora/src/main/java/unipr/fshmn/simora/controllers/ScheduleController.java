@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/schedule")
@@ -60,5 +62,88 @@ public class ScheduleController {
         }
         return roomID;
     }
+
+    public String getRoomName(Long ID)
+    {
+        String roomName = "";
+        Iterable<Room> rooms = roomRepository.findAll();
+        for(Room room : rooms)
+        {
+            if(ID == room.getID())
+            {
+                roomName = room.getRoom();
+            }
+        }
+        return roomName;
+    }
+
+    public Schedule getSchedule(Long ID)
+    {
+        Schedule schedule = new Schedule();
+        Iterable<Schedule> schedules =  scheduleRepository.findAll();
+        for(Schedule s : schedules)
+        {
+            if(ID == s.getID())
+            {
+                schedule = s;
+            }
+        }
+        System.out.println(schedule.getID());
+        return schedule;
+    }
+
+    public ScheduleDTO toDTO(Schedule schedule)
+    {
+        ScheduleDTO obj = new ScheduleDTO();
+        obj.setDepartment(schedule.getDepartment());
+        obj.setEndDate(schedule.getEndDate());
+        obj.setStartDate(schedule.getStartDate());
+        obj.setID(schedule.getID());
+        obj.setSubject(schedule.getSubject());
+        obj.setUserID(schedule.getUserID());
+        obj.setRoomName(getRoomName(schedule.getRoomID()));
+        return obj;
+    }
+
+    /*@RequestMapping(path="/indexP") // Map ONLY POST Requests
+    public ModelAndView addNewUser (@RequestParam String date, @RequestParam String department, @RequestParam String room) {
+
+
+        s.setDepartment(department);
+        s.setRoomID(getRoomId(room));
+
+        scheduleRepository.save(s);
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("indexA");
+        return modelAndView;
+    }*/
+
+    @RequestMapping("/indexP")
+    public ModelAndView schedules()
+    {
+        //Ne baze te USER-it, pjesa tjeter eshte krejt e njejte
+        Iterable<ScheduleDTO> schedules = (Iterable<ScheduleDTO>)
+                scheduleRepository.findBySubjectAndDepartment("Programimi i Distribuuar","Matematike").stream().map(this::toDTO).collect(Collectors.toList());
+        /*for(Schedule schedule : schedules)
+        {
+            schedule.setRoomID(getRoomName(schedule.getRoomID()));
+        }*/
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("schedules",schedules);
+        modelAndView.setViewName("indexP");
+        return modelAndView;
+    }
+
+    @RequestMapping()
+    public ModelAndView removeSchedules(@RequestParam Long scheduleID)
+    {
+        System.out.println(6565);
+        Schedule schedule = getSchedule(scheduleID);
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("schedule",schedule);
+        modelAndView.setViewName("redirect:indexA");
+        return modelAndView;
+    }
+
 
 }
