@@ -46,7 +46,8 @@ public class UserController {
         userRepository.save(n);
         ModelAndView modelAndView=new ModelAndView();
         //Me ja qu ni email me passwordin nashta
-        modelAndView.setViewName("indexA");
+       // modelAndView.setViewName("indexA");
+        modelAndView.setViewName("userAdded");
         return modelAndView;
     }
 
