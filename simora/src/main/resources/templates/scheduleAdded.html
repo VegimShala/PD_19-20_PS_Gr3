@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMORA - Shto shfrytezues</title>
+    <link rel="stylesheet" type="text/css" href="/css/menu.css"/>
+    <link rel="stylesheet" href="/css/addUser.css"/>
+</head>
+<body>
+<div class="menu">
+    <div class="header">
+        <p>SIMORA</p>
+    </div>
+    <div class="photo">
+        <img src="../static/images/Avatar.png" th:src="@{images/Avatar.png}" width="200px" height="200px">
+    </div>
+    <div class="info">
+        <p>ID</p>
+        <p>Emri Mbiemri</p>
+        <p>Email</p>
+        <p>Departamenti i DEPT</p>
+        <p>FSHMN</p>
+    </div>
+    <div style="margin-top: 125px;" class="menuItems">
+        <nav>
+            <ul>
+                <li><a href="#"> Orari i provimeve </a></li>
+                <hr>
+                <li> <a href="#">Kontakto profesoret </a></li>
+                <hr>
+                <li> <a href="#">Shto shfrytezues </a></li>
+                <hr>
+            </ul>
+        </nav>
+    </div>
+    <div class="footer">
+        <a href="#" id="logout">Ckyqu</a>
+        <a href="#" id="changePass">Ndrysho fjalekalimin</a>
+    </div>
+</div>
+
+<div class="content" style="text-align:center;">
+    <h1 style="color:green; margin-top:350px;">Orari u shtua me sukses!</h1>
+    <button style=" width: 250px; height: 50px; border-radius: 15px; background-color: #9A2323;color: white;font-size:20px">
+        <a href="../indexA" >Kthehu te faqja kryesore</a>
+    </button>
+</div>
+</body>
+</html>
