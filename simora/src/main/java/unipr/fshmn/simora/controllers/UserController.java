@@ -1,6 +1,11 @@
 package unipr.fshmn.simora.controllers;
 
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,13 +54,8 @@ public class UserController {
 
     @GetMapping(path="/sendEmail")
     public ModelAndView addNewUser (@RequestParam String to) {
-<<<<<<< HEAD
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-        emailService.sendSimpleMessage(to,"Test","ksks");
-=======
+
         emailService.sendSimpleMessage(to,"Test","qkemi");
->>>>>>> 7e906cc3224df046453ed13530b5270faffc186e
         return null;
     }
 
@@ -65,6 +65,7 @@ public class UserController {
     }
 
     private String generatePassayPassword() {
+
         PasswordGenerator gen = new PasswordGenerator();
         CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
         CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);

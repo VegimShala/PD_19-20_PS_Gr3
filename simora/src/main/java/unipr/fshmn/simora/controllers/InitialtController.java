@@ -17,6 +17,7 @@ public class InitialtController {
     {
         return "addSchedule";
     }
+
     @RequestMapping("/indexA")
     public String indexA()
     {
