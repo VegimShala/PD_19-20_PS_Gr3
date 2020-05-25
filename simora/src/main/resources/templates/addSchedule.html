@@ -93,8 +93,13 @@
                             <script>
                                 function selectChanged() {
                                     var selectDepartment = document.getElementById("selectDepartment");
-
                                     var selectRoomOptions = document.getElementsByClassName(selectDepartment.value);
+                                    var selectRoom = document.getElementById("selectRoom").options;
+                                    for(var i = 1; i<selectRoom.length; i++)
+                                    {
+                                        selectRoom[i].hidden = true;
+                                    }
+
                                     for (var i = 0; i < selectRoomOptions.length; i++) {
                                         selectRoomOptions[i].hidden = false;
                                     }
