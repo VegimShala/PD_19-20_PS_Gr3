@@ -39,7 +39,9 @@ public class ScheduleController {
         s.setEndDate(LocalDateTime.parse(endDate));
         scheduleRepository.save(s);
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("indexA");
+
+        modelAndView.setViewName("scheduleAdded");
+        //modelAndView.setViewName("indexA");
         return modelAndView;
     }
 

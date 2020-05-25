@@ -12,38 +12,86 @@ import unipr.fshmn.simora.db.User;
 import unipr.fshmn.simora.db.UserRepository;
 import unipr.fshmn.simora.mail.EmailServiceImpl;
 
+import static org.passay.NumberRangeRule.ERROR_CODE;
+
 @Controller
 @RequestMapping(path="/user")
 public class UserController {
     @Autowired
+    PasswordEncoder passwordEncoder;
+
+
+    @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private EmailServiceImpl emailService;
-    @RequestMapping(path="/add") // Map ONLY POST Requests
+    @RequestMapping(path="/add")
     public ModelAndView addNewUser (@RequestParam String name,@RequestParam String lastName,@RequestParam String department
             , @RequestParam String email,@RequestParam Long id) {
 
+        String randomPassword = generatePassayPassword();
         User n = new User();
         n.setID(id);
         n.setFirstName(name);
         n.setEmail(email);
+        n.setPassword(passwordEncoder.encode(randomPassword));
         n.setLastName(lastName);
+        n.setEnabled(Boolean.TRUE);
         n.setDepartment(department);
         userRepository.save(n);
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("indexA");
+        //Me ja qu ni email me passwordin nashta
+       // modelAndView.setViewName("indexA");
+        modelAndView.setViewName("userAdded");
         return modelAndView;
     }
-    @GetMapping(path="/sendEmail") // Map ONLY POST Requests
+
+    @GetMapping(path="/sendEmail")
     public ModelAndView addNewUser (@RequestParam String to) {
+<<<<<<< HEAD
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         emailService.sendSimpleMessage(to,"Test","ksks");
+=======
+        emailService.sendSimpleMessage(to,"Test","qkemi");
+>>>>>>> 7e906cc3224df046453ed13530b5270faffc186e
         return null;
     }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    private String generatePassayPassword() {
+        PasswordGenerator gen = new PasswordGenerator();
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+        lowerCaseRule.setNumberOfCharacters(2);
+
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+        upperCaseRule.setNumberOfCharacters(2);
+
+        CharacterData digitChars = EnglishCharacterData.Digit;
+        CharacterRule digitRule = new CharacterRule(digitChars);
+        digitRule.setNumberOfCharacters(2);
+
+        CharacterData specialChars = new CharacterData() {
+            public String getErrorCode() {
+                return ERROR_CODE;
+            }
+
+            public String getCharacters() {
+                return "!@#$%^&*()_+";
+            }
+        };
+        CharacterRule splCharRule = new CharacterRule(specialChars);
+        splCharRule.setNumberOfCharacters(2);
+
+        String password = gen.generatePassword(10, splCharRule, lowerCaseRule,
+                upperCaseRule, digitRule);
+        return password;
     }
 }
