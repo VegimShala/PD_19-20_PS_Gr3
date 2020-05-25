@@ -1,8 +1,6 @@
 package unipr.fshmn.simora.db;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -11,15 +9,33 @@ public class User {
     private Long ID;
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
+    private Boolean enabled;
     private String department;
     private boolean isAdmin;
 
     public User() {
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setEmail(String email) {
